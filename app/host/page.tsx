@@ -10,6 +10,7 @@ import { useQueue } from "@/hooks/use-queue"
 import { QueueEntry } from "@/types/queue"
 import { formatTime } from "@/lib/date-utils"
 import ProtectedRoute from "@/components/protected-route"
+import CongestionControl from "@/components/congestion-control"
 import Link from "next/link"
 
 export default function HostDashboard() {
@@ -211,11 +212,21 @@ export default function HostDashboard() {
           </Card>
         </motion.div>
 
-        {/* Call Next Button */}
+        {/* Congestion Control */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
+          className="mb-8"
+        >
+          <CongestionControl businessId={businessId} />
+        </motion.div>
+
+        {/* Call Next Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
           className="mb-8"
         >
           <Button
@@ -232,7 +243,7 @@ export default function HostDashboard() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
+            transition={{ delay: 0.4 }}
             className="mb-8"
           >
             <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
@@ -288,7 +299,7 @@ export default function HostDashboard() {
         )}
 
         {/* Queue List */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
           <h2 className="text-xl font-bold text-foreground mb-4">Waiting Queue</h2>
 
           <div className="space-y-3">

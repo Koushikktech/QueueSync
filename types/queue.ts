@@ -25,6 +25,8 @@ export interface Business {
   averageServiceTime: number
   currentQueueLength: number
   isOpen: boolean
+  congestionLevel?: 'low' | 'moderate' | 'high'
+  congestionUpdatedAt?: Date
   location: {
     address: string
     coordinates: {
@@ -52,3 +54,10 @@ export interface WaitTimeData {
   specialEvents?: string[]
 }
 
+export type CongestionLevel = 'low' | 'moderate' | 'high'
+
+export interface CongestionData {
+  businessId: string
+  congestionLevel: CongestionLevel
+  updatedAt: Date
+}

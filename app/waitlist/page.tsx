@@ -11,6 +11,7 @@ import { Card } from "@/components/ui/card"
 import { ArrowLeft, Users, Clock } from "lucide-react"
 import { useLocalQueue } from "@/hooks/use-local-queue"
 import { QueueHistory } from "@/lib/queue-history"
+import CongestionIndicator from "@/components/congestion-indicator"
 import Link from "next/link"
 
 export default function WaitlistPage() {
@@ -63,8 +64,11 @@ export default function WaitlistPage() {
               Back to Home
             </Button>
           </Link>
-          <div>
-            <h1 className="text-3xl font-bold text-foreground">My Queue Status</h1>
+          <div className="flex-1">
+            <div className="flex items-center gap-4 mb-2">
+              <h1 className="text-3xl font-bold text-foreground">My Queue Status</h1>
+              <CongestionIndicator businessId="demo-business" />
+            </div>
             <p className="text-muted-foreground">Track your position in real-time</p>
           </div>
         </div>

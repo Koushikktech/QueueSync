@@ -5,6 +5,7 @@ import { useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Clock } from "lucide-react"
 import JoinQueueForm from "@/components/join-queue-form"
+import CongestionIndicator from "@/components/congestion-indicator"
 
 export default function Hero() {
   const [mounted, setMounted] = useState(false)
@@ -64,6 +65,12 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="flex flex-col items-center gap-6"
             >
+              {/* Congestion Indicator */}
+              <div className="flex items-center gap-3 mb-2">
+                <span className="text-sm text-muted-foreground">Current Status:</span>
+                <CongestionIndicator businessId="demo-business" />
+              </div>
+              
               <JoinQueueForm 
                 onSuccess={() => {
                   // Redirect to waitlist after successful join

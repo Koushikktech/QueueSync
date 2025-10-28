@@ -27,6 +27,8 @@ export async function POST(request: NextRequest) {
         averageServiceTime: 10,
         currentQueueLength: 0,
         isOpen: true,
+        congestionLevel: 'low',
+        congestionUpdatedAt: new Date(),
         location: {
           address: '123 Demo Street',
           coordinates: { lat: 40.7128, lng: -74.0060 }
