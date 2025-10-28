@@ -1,0 +1,2 @@
+# This would be an actual MP3 file in a real implementation
+# For now, we'll use Web Audio API to generate a sound
