@@ -64,25 +64,30 @@ export async function POST(request: NextRequest) {
     let estimatedWaitTime = position * 10 // Fallback calculation
     let mlPredicted = false
     
-    try {
-      const isMLAvailable = await MLService.isMLServiceAvailable()
-      
-      if (isMLAvailable && userInfo.partySize) {
-        const currentHour = new Date().getHours()
-        const queueSize = queueSnapshot.size
+    // Skip ML prediction in production if service is not available
+    if (process.env.NODE_ENV !== 'production' || process.env.ENABLE_ML_SERVICE === 'true') {
+      try {
+        const isMLAvailable = await MLService.isMLServiceAvailable()
         
-        const mlWaitTime = await MLService.getUpdatedWaitTime({
-          queueSize,
-          currentHour,
-          partySize: userInfo.partySize,
-        })
-        
-        estimatedWaitTime = mlWaitTime
-        mlPredicted = true
-        console.log(`ML prediction: ${mlWaitTime} minutes for party of ${userInfo.partySize}`)
+        if (isMLAvailable && userInfo.partySize) {
+          const currentHour = new Date().getHours()
+          const queueSize = queueSnapshot.size
+          
+          const mlWaitTime = await MLService.getUpdatedWaitTime({
+            queueSize,
+            currentHour,
+            partySize: userInfo.partySize,
+          })
+          
+          estimatedWaitTime = mlWaitTime
+          mlPredicted = true
+          console.log(`ML prediction: ${mlWaitTime} minutes for party of ${userInfo.partySize}`)
+        }
+      } catch (mlError) {
+        console.warn('ML prediction failed, using fallback:', mlError)
+        // Ensure we still have a reasonable fallback
+        estimatedWaitTime = Math.max(5, position * 8)
       }
-    } catch (mlError) {
-      console.warn('ML prediction failed, using fallback:', mlError)
     }
 
     const queueEntry = {
@@ -117,8 +122,31 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error('Error joining queue:', error)
+    
+    // More specific error handling
+    let errorMessage = 'Failed to join queue'
+    let errorDetails = 'Unknown error'
+    
+    if (error instanceof Error) {
+      errorDetails = error.message
+      
+      // Check for specific Firebase errors
+      if (error.message.includes('Firebase')) {
+        errorMessage = 'Database connection error'
+      } else if (error.message.includes('credential')) {
+        errorMessage = 'Authentication error'
+      } else if (error.message.includes('permission')) {
+        errorMessage = 'Permission denied'
+      }
+    }
+    
     return NextResponse.json(
-      { error: 'Failed to join queue', details: error instanceof Error ? error.message : 'Unknown error' },
+      { 
+        error: errorMessage, 
+        details: errorDetails,
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV
+      },
       { status: 500 }
     )
   }
