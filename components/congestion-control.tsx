@@ -69,7 +69,7 @@ export default function CongestionControl({ businessId = 'demo-business' }: { bu
       case 'low':
         return {
           icon: CheckCircle,
-          text: 'Low Traffic',
+          text: 'Low Congestion',
           description: 'Minimal wait times expected',
           className: 'bg-green-100 text-green-800 border-green-300',
           buttonClass: 'bg-green-600 hover:bg-green-700 text-white'
@@ -77,7 +77,7 @@ export default function CongestionControl({ businessId = 'demo-business' }: { bu
       case 'moderate':
         return {
           icon: Clock,
-          text: 'Moderate Traffic',
+          text: 'Moderate Congestion',
           description: 'Average wait times expected',
           className: 'bg-orange-100 text-orange-800 border-orange-300',
           buttonClass: 'bg-orange-600 hover:bg-orange-700 text-white'
@@ -85,7 +85,7 @@ export default function CongestionControl({ businessId = 'demo-business' }: { bu
       case 'high':
         return {
           icon: AlertTriangle,
-          text: 'High Traffic',
+          text: 'High TCongestion',
           description: 'Longer wait times expected',
           className: 'bg-red-100 text-red-800 border-red-300',
           buttonClass: 'bg-red-600 hover:bg-red-700 text-white'

@@ -45,7 +45,7 @@ export default function CongestionDemo() {
             <Card className="p-6">
               <h3 className="text-lg font-medium mb-4">Current Status</h3>
               <div className="flex items-center gap-3 mb-6">
-                <span className="text-sm text-muted-foreground">Area Traffic:</span>
+                <span className="text-sm text-muted-foreground">Area Congestion:</span>
                 <CongestionIndicator key={refreshKey} businessId="demo-business" />
               </div>
               
@@ -58,7 +58,7 @@ export default function CongestionDemo() {
                 <ul className="text-sm text-muted-foreground space-y-1">
                   <li>• Admin sets congestion level in real-time</li>
                   <li>• Customers see color-coded indicators</li>
-                  <li>• Green = Low traffic, Orange = Moderate, Red = High</li>
+                  <li>• Green = Low Congestion, Orange = Moderate, Red = High</li>
                   <li>• Updates automatically every 30 seconds</li>
                 </ul>
               </div>
