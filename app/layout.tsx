@@ -2,6 +2,7 @@ import type React from "react";
 import type { Metadata } from "next";
 import { geist } from "@/lib/fonts";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
   title: "QueueSync",
@@ -16,7 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${geist.className} dark`}>{children}</body>
+      <body className={`${geist.className} dark`}>{children}
+        <Analytics/>
+      </body>
     </html>
   );
 }

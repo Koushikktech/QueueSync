@@ -138,24 +138,6 @@ export default function AdminLogin({ onLogin, error }: AdminLoginProps) {
             </Button>
           </form>
 
-          {/* Demo Credentials */}
-          <div className="mt-8 p-4 bg-muted/50 rounded-lg border border-border">
-            <h3 className="text-foreground font-medium mb-3 text-sm">Demo Credentials:</h3>
-            <div className="space-y-2 text-xs text-muted-foreground">
-              <div className="flex justify-between">
-                <span>Admin:</span>
-                <code className="bg-background px-2 py-1 rounded border">admin / admin123</code>
-              </div>
-              <div className="flex justify-between">
-                <span>Manager:</span>
-                <code className="bg-background px-2 py-1 rounded border">manager / manager123</code>
-              </div>
-              <div className="flex justify-between">
-                <span>Staff:</span>
-                <code className="bg-background px-2 py-1 rounded border">staff / staff123</code>
-              </div>
-            </div>
-          </div>
 
           {/* Footer */}
           <div className="mt-6 text-center text-xs text-muted-foreground">
